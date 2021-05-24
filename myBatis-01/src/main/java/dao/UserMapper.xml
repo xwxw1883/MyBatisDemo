@@ -6,13 +6,18 @@
 <mapper namespace="dao.UserMapper">
 <!--	对应namespace中的方法名-->
 	<select id="getUserList" resultType="pojo.User">
-		select * from mybatis.user
+		select * from mybatis.user;
 	</select>
 	<select id="getUserById" parameterType="int" resultType="pojo.User">
-		select * from mybatis.user where id = #{id}
+		select * from mybatis.user where id = #{id};
 	</select>
+<!--	//要是对象重的字段名对应-->
 	<insert id="addUser" parameterType="pojo.User">
-		insert  into mybatis.user (id,name,pwd) values (#{id},#{name},#{pwd})
+		insert  into mybatis.user (id,name,pwd) values (#{id},#{name},#{pwd});
+	</insert>
+<!--	//要和key对应-->
+	<insert id="addUser2" parameterType="map">
+		insert  into mybatis.user (id,name,pwd) values (#{userid},#{username},#{userpwd});
 	</insert>
 	<update id="upDateUser" parameterType="pojo.User">
 		update mybatis.user
@@ -23,5 +28,8 @@
 		from mybatis.user
 		where id=#{id};
 	</delete>
-
+<!--	//模糊匹配 基本类型：String int 等参数可省略-->
+	<select id="getUserLike" parameterType="String" resultType="pojo.User">
+		select * from mybatis.user where name like "%"#{value}"%"
+	</select>
 </mapper>
